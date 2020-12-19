@@ -13,8 +13,8 @@ url: https://ianarb.github.io
 # Website info
 title: Ian Arbuckle
 description: Place to learn about Kotlin and Android
-cover: /assets/images/tech-cover.jpg
-logo_dark: /assets/images/favicon.png
+cover: assets/images/tech-cover.jpg
+logo_dark: assets/images/favicon.png
 favicon: /assets/images/favicon.png
 CNAME: #add cname for website to be created
 
