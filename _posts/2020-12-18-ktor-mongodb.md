@@ -1,6 +1,6 @@
 ---
-layout: post
-current: post
+layout: page
+current: about
 cover:  assets/images/writing.jpg
 navigation: True
 title: Building a RESTful API with Ktor & MongoDB Altas
