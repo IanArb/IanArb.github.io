@@ -33,13 +33,13 @@ Let's start setting up our MongoDB database using Altas. Head to the [Altas site
 Firstly, we need to create a project as shown below:
 
 <p align="center">
-    <img width="900" src="../assets/images/create-project.png" alt="Create Project" />
+    <img width="900" src="../ianarbuckle/assets/images/create-project.png" alt="Create Project" />
 </p>
 
 We can keep the defaults for permissions for this tutorial and just hit "Create Project" as shown below:
 
 <p align="center">
-    <img width="900" src="../assets/images/creat-project-part2.png" alt="Create Project" />
+    <img width="900" src="../ianarbuckle/assets/images/creat-project-part2.png" alt="Create Project" />
 </p>
 
 Once you've built your project, we can starting creating our cluster!
@@ -47,13 +47,13 @@ Once you've built your project, we can starting creating our cluster!
 Before we begin, a cluster in a nutshell is a shared cluster that will allow us to scale read and writes along several nodes. Instead of going into detail, I'd recommend checking out the official [documentation](https://docs.mongodb.com/v3.0/core/sharding-introduction) on sharding.
 
 <p align="center">
-    <img width="900" src="../assets/images/build-cluster.png" alt="Cluster Tier" />
+    <img width="900" src="../ianarbuckle/assets/images/build-cluster.png" alt="Cluster Tier" />
 </p>
 
 We are going to use the free cluster for this tutorial. So, we don't have to spend any money ;)
 
 <p align="center">
-    <img width="900" src="../assets/images/cluster-intro.png" alt="Cluster Tier" />
+    <img width="900" src="../ianarbuckle/assets/images/cluster-intro.png" alt="Cluster Tier" />
 </p>
 
 Once we've done that, we now have a few options to how we can configure our cluster. We can choose a cloud provider such as; AWS, Azure and Google Cloud. For this tutorial, we will be using the most popular provider, AWS.
@@ -61,25 +61,25 @@ Once we've done that, we now have a few options to how we can configure our clus
 As shown below, make sure you hit AWS and choose your replica zone. I'll be using the eu-west-1 zone but you should pick the region that is the closest to you.
 
 <p align="center">
-    <img width="900" src="../assets/images/cluster-aws.png" alt="Cluster Tier" />
+    <img width="900" src="../ianarbuckle/assets/images/cluster-aws.png" alt="Cluster Tier" />
 </p>
 
 Now, we are going to create our cluster. For this tutorial, we will be using the free tier sandbox cluster as shown below:
 
 <p align="center">
-    <img width="900" src="../assets/images/cluster-tier.png" alt="Cluster Tier" />
+    <img width="900" src="../ianarbuckle/assets/images/cluster-tier.png" alt="Cluster Tier" />
 </p>
 
 Then we can give our cluster a name shown below:
 
 <p align="center">
-    <img width="900" src="../assets/images/cluster-name.png" alt="Cluster Name" />
+    <img width="900" src="../ianarbuckle/assets/images/cluster-name.png" alt="Cluster Name" />
 </p>
 
 Now we can wait for Altas to build our environments for us.
 
 <p align="center">
-    <img width="900" src="../assets/images/building-cluster.png" alt="Cluster Name" />
+    <img width="900" src="../ianarbuckle/assets/images/building-cluster.png" alt="Cluster Name" />
 </p>
 
 Done? Great! Now we'll stop here and setup our Ktor app.
@@ -94,7 +94,7 @@ Firstly, we can create our Ktor app by creating a new project shown below:
 By time of writing, I'm using Ktor 1.4.3. 
 
 <p align="center">
-    <img width="900" src="../assets/images/ktor-setup.png" alt="ktor setup" />
+    <img width="900" src="../ianarbuckle/assets/images/ktor-setup.png" alt="ktor setup" />
 </p>
 
 Then you can create your project name and hit finish.
@@ -129,7 +129,7 @@ The advantage of Ktor is the freedom to choose whatever architecture fits our us
 Our project skeleton will look something like this:
 
 <p align="center">
-    <img width="900" src="../assets/images/ktor-app-arch.png" alt="ktor app architecture" />
+    <img width="900" src="../ianarbuckle/assets/images/ktor-app-arch.png" alt="ktor app architecture" />
 </p>
 
 Let's take a look at our ``application.conf`` file and this is where can add configurations for our Ktor application. We can define the port and create environment variables here too. We are going to add an environment variable for our mongo uri that we will use to connect our database.
@@ -152,13 +152,13 @@ In order to get our Mongo uri we can retrieve this from the MongoDB Altas projec
 Hit the "connect" button in the cluster sandbox:
 
 <p align="center">
-    <img width="900" src="../assets/images/mongodb-cluster-connect.png" alt="ktor app architecture" />
+    <img width="900" src="../ianarbuckle/assets/images/mongodb-cluster-connect.png" alt="ktor app architecture" />
 </p>
 
 Then select the "Connect your application" option and you can copy the uri from there:
 
 <p align="center">
-    <img width="900" src="../assets/images/mongodb-cluster-uri.png" alt="ktor app architecture" />
+    <img width="900" src="../ianarbuckle/assets/images/mongodb-cluster-uri.png" alt="ktor app architecture" />
 </p>
 
 Now copy that and we need to replace the ```<dbname>``` and ``<password>`` placeholders. 
@@ -524,13 +524,13 @@ Let's go ahead and populate those variables. I'll be saving them in Intellji's r
 Go to edit configurations as shown below beside the run button.
 
 <p align="center">
-    <img width="900" src="../assets/images/env-varibales-edit.png" alt="ktor app architecture" />
+    <img width="900" src="../ianarbuckle/assets/images/env-varibales-edit.png" alt="ktor app architecture" />
 </p>
 
 Select "environment variables" and add the mongo uri and port number as shown below then hit "apply".
 
 <p align="center">
-    <img width="900" src="../assets/images/env-variables-add.png" alt="ktor app architecture" />
+    <img width="900" src="../ianarbuckle/assets/images/env-variables-add.png" alt="ktor app architecture" />
 </p>
 
 Go ahead and run our Ktor app and give yourself a good pat on the back!
