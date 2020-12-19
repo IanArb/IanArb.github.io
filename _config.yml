@@ -72,8 +72,8 @@ repo: IanArb.github.io
 branch: master
 relative_source: ../jasper2/
 destination: ../jasper2-pages/
-production_url:  https://IanArb.github.io/IanArb/
-source_url:  https://github.com/IanArb/IanArb.github.io/
+production_url:  https://ianarb.github.io/
+source_url:  https://github.com/IanArb/ianarb.github.io/
 
 exclude:
   - assets/css
