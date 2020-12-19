@@ -8,6 +8,7 @@ words_per_minute: 200
 
 # edit baseurl to simply '/' if using as your personal page (instead of a project page)
 baseurl: /
+url: https://ianarb.github.io/
 
 # Website info
 title: Ian Arbuckle
@@ -68,12 +69,12 @@ feed:
 safe: False
 lsi: False
 username: IanArb
-repo: IanArb.github.io
+repo: ianarb.github.io
 branch: master
 relative_source: ../jasper2/
 destination: ../jasper2-pages/
-production_url:  https://ianarb.github.io/
-source_url:  https://github.com/IanArb/ianarb.github.io/
+production_url:  https://ianarb.github.io/jasper2/
+source_url:  https://github.com/IanArb/ianarb.github.io/jasper2/
 
 exclude:
   - assets/css
