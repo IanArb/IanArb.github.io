@@ -2,7 +2,7 @@
 layout: page
 current: about
 cover:  assets/images/writing.jpg
-navigation: True
+navigation: true
 title: Building a RESTful API with Ktor & MongoDB Altas
 date: 2020-12-18 17:00:00
 tags: [Ktor MongoDB Altas]

@@ -16,7 +16,7 @@ description: Place to learn about Kotlin and Android
 cover: assets/images/tech-cover.jpg
 logo_dark: assets/images/favicon.png
 favicon: /assets/images/favicon.png
-CNAME: #add cname for website to be created
+CNAME: ian.arbuckle.dev
 
 # Social info
 navigation: True # show the navbar links
