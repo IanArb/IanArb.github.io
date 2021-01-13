@@ -4,7 +4,7 @@ current: about
 cover:  assets/images/writing.jpg
 navigation: true
 title: Building a RESTful API with Ktor & MongoDB Altas
-date: 2020-12-18 17:00:00
+date: 2021-01-01 17:00:00
 tags: [Ktor MongoDB Altas]
 class: post-template
 subclass: 'post'
