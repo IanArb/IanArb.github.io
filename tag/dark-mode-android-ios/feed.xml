@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<feed xmlns="http://www.w3.org/2005/Atom" >
+  <generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator>
+  <link href="https://ianarbuckle.dev/tag/dark-mode-android-ios/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="https://ianarbuckle.dev/" rel="alternate" type="text/html" />
+  <updated>2021-02-15T19:30:23+00:00</updated>
+  <id>https://ianarbuckle.dev/tag/dark-mode-android-ios/feed.xml</id>
+
+  
+  
+  
+
+  
+    <title type="html">Ian Arbuckle | </title>
+  
+
+  
+    <subtitle>Place to learn about Kotlin and Android</subtitle>
+  
+
+  
+
+  
+    
+      
+    
+  
+
+  
+  
+
+  
+    <entry>
+      <title type="html">Collaborating with designers for dark mode on Android &amp;amp; iOS</title>
+      <link href="https://ianarbuckle.dev/dark-mode-with-designers" rel="alternate" type="text/html" title="Collaborating with designers for dark mode on Android &amp; iOS" />
+      <published>2021-01-06T17:00:00+00:00</published>
+      <updated>2021-01-06T17:00:00+00:00</updated>
+      <id>https://ianarbuckle.dev/dark-mode-with-designers</id>
+      <content type="html" xml:base="https://ianarbuckle.dev/dark-mode-with-designers">&lt;p&gt;This blog post will share my experience working with designers on how to bring the best experience for your platform, whether it is Android or iOS.&lt;/p&gt;
+
+&lt;p&gt;Dark mode support is becoming a popular feature and almost every customer and business stakeholder is asking for it. Rightly so, the big advantage of implementing dark mode on your mobile apps is the battery saving consumption for our users. The more battery life, the happier the user! It also brings an aesthetic option to our users who may prefer darker colours. For instance, a user may have sensitivity to bright light colours. By implementing dark mode, we are making our mobile apps more accessible to users with sensitive eyesight.&lt;/p&gt;
+
+&lt;p&gt;Your first instinct might be just to read the documentation on the respective platform and implement the feature as you go. We can get away with that on our side projects but maybe not so on real projects. In most projects, you will have a designer and communication will be key. Both platforms implement dark mode differently and I’ll outline the approaches you could take before getting your hands dirty.&lt;/p&gt;
+
+&lt;h2 id=&quot;colour-palettes&quot;&gt;Colour Palettes&lt;/h2&gt;
+
+&lt;p&gt;We should start reviewing the mobile app’s colour palette. In our case, we had numerous variants of colours on the greyscale hardcoded in the Android and iOS codebase. This presented a bottleneck on preparing our app to dark mode. Firstly, do review your existing colour palette as this will make a smooth transition. In our case, we standardised our greyscale palette in the light variant which allowed us to easily swap this to our dark mode variant.&lt;/p&gt;
+
+&lt;p&gt;Here our examples of how we transformed our greyscale.&lt;/p&gt;
+
+&lt;p&gt;Light greyscale&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+    &lt;img height=&quot;850&quot; src=&quot;../assets/images/light-scale-design.png&quot; alt=&quot;Light greyscale&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;small&gt;From &lt;a href=&quot;https://cartrawler.invisionapp.com/share/FGQ4MIYEJ5P#/screens/342569480&quot;&gt;https://cartrawler.invisionapp.com/share/FGQ4MIYEJ5P#/screens/342569480&lt;/a&gt; &lt;/small&gt;&lt;/p&gt;
+
+&lt;p&gt;Dark greyscale&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+    &lt;img height=&quot;750&quot; src=&quot;../assets/images/dark-scale-design.png&quot; alt=&quot;Dark greyscale&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;small&gt;From &lt;a href=&quot;https://cartrawler.invisionapp.com/share/FGQ4MIYEJ5P#/screens/342569480&quot;&gt;https://cartrawler.invisionapp.com/share/FGQ4MIYEJ5P#/screens/342569480&lt;/a&gt; &lt;/small&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;promote-your-apps-brand-in-dark-mode&quot;&gt;Promote your app’s brand in dark mode&lt;/h3&gt;
+
+&lt;p&gt;Once we consolidated our greyscale we moved onto our branding colours. In terms of dark mode, mostly everything is dark. However, you can still promote your app’s brand by making good use of your secondary colours and primary colour variants.&lt;/p&gt;
+
+&lt;p&gt;An example of our dark theme branding colours:&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+    &lt;img src=&quot;../assets/images/dark-mode-brand.png&quot; alt=&quot;Dark mode brand colours&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;small&gt;From &lt;a href=&quot;https://cartrawler.invisionapp.com/share/FGQ4MIYEJ5P#/screens/342569480&quot;&gt;https://cartrawler.invisionapp.com/share/FGQ4MIYEJ5P#/screens/342569480&lt;/a&gt; &lt;/small&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;use-system-defined-attributes&quot;&gt;Use system defined attributes&lt;/h3&gt;
+&lt;p&gt;In Android, we use the attributes defined by the Material Components Themes. The full color theming guide can be found from the material components theme &lt;a href=&quot;https://material.io/develop/android/theming/color&quot;&gt;documentation&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;We can then simply setup our dark theme by inheriting the &lt;code class=&quot;highlighter-rouge&quot;&gt;.DayNight&lt;/code&gt; theme as follows:&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;style&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Theme.MyApp&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;parent=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Theme.MaterialComponents.DayNight&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;&amp;lt;!-- ... --&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/style&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In our case, we needed to be able to override some color resources in night theme. In order to do this, we create a value folder called &lt;code class=&quot;highlighter-rouge&quot;&gt;value-night&lt;/code&gt; directory with our defined night theme. This enabled us to easily facilitate changes in both our light and dark themes.&lt;/p&gt;
+
+&lt;p&gt;On iOS side, they needed to remove any hardcoded color values that don’t adapt to the &lt;a href=&quot;https://developer.apple.com/design/human-interface-guidelines/ios/visual-design/color/#dynamic-system-colors&quot;&gt;dynamic system colors&lt;/a&gt;. iOS had a few custom components that needed to be migrated to the dynamic system colours. Otherwise, we will run into issues if something changes from release to release.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Instead of trying to create custom colors that match the system colors, use the dynamic system colors.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;small&gt;From &lt;a href=&quot;https://developer.apple.com/design/human-interface-guidelines/ios/visual-design/color/#dynamic-system-colors&quot;&gt;https://developer.apple.com/design/human-interface-guidelines/ios/visual-design/color/#dynamic-system-colors&lt;/a&gt; &lt;/small&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;material-design-vs-human-interface-guidelines&quot;&gt;Material Design vs Human Interface Guidelines&lt;/h2&gt;
+
+&lt;p&gt;Android uses &lt;a href=&quot;https://material.io/&quot;&gt;Material Design&lt;/a&gt; whereas iOS follows &lt;a href=&quot;https://developer.apple.com/design/human-interface-guidelines/&quot;&gt;Human Interface Guidelines&lt;/a&gt;. For a designer, this is extremely important to notice any subtle UI differences from both design guidelines. If you have a designer who prefers to implement iOS designs and tells you to just “copy” it for Android. That habit needs to stop when it comes to implementing dark mode. Otherwise, we’ll be sacrificing good user experience on one platform. On top of all that, frustrated Android developers ;)&lt;/p&gt;
+
+&lt;p&gt;In Android, we use elevation for cards, banners or bottom sheet components. In dark theme, the behaviour is slightly different.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;As a surface raises in elevation, it becomes lighter in color.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;small&gt;From &lt;a href=&quot;https://material.io/design/color/dark-theme.html#properties&quot;&gt;https://material.io/design/color/dark-theme.html#properties&lt;/a&gt; &lt;/small&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;android&quot;&gt;Android&lt;/h4&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+    &lt;img height=&quot;850&quot; src=&quot;../assets/images/android-elevation.png&quot; alt=&quot;Android card elevation&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In this example, we decided to increase the elevation for the edit search card to let the user know that it can be interacted with. The car block elevation has been set to the default elevation. In contrast to our light theme, the card becomes lighter in colour when we increase the elevation.&lt;/p&gt;
+
+&lt;h4 id=&quot;ios&quot;&gt;iOS&lt;/h4&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+    &lt;img height=&quot;850&quot; src=&quot;../assets/images/ios-elevation-border.png&quot; alt=&quot;iOS card elevation&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In iOS we decided to highlight the edit search card with a white border. The car block card itself is darker in colour in comparison to Android, which opts for a lighter dark.&lt;/p&gt;
+
+&lt;p&gt;In iOS, elevation isn’t used to support visual cues for separation between surfaces. When implementing dark mode, this would be one of main subtle UI differences. This highlights the importance of following the platform’s design patterns. This will enable us to deliver a consistent and good dark mode experience for our users on both platforms.&lt;/p&gt;
+
+&lt;h2 id=&quot;design-reviews&quot;&gt;Design Reviews&lt;/h2&gt;
+
+&lt;p&gt;Doing a design review or if you prefer to call them design QAs, is the most important process to delivering a fully polished dark mode feature. To make the design reviews less tedious and long, I recommend you to follow these steps:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Keep it small&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;Ask your designers to only review screen by screen. The last thing you want is a massive design feedback for the entire feature! By keeping it small, you can tackle the design feedback in smaller pieces and build your way through it. This saves yourself time and of course, helps your designers.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Keep the behaviour consistent to the platform&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;Since Android uses elevation for surface raise on cards for example, whereas iOS may opt for a slightly light dark surface instead. Both platforms UIs have subtle differences and communicating this with a designer is key.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Don’t take it personal&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;Design reviews are not to be used as a platform to nick pick your work. They allow a designer to ensure that the work you implemented matches what they’ve designed. Just remember, this is as much as their work as is yours.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Most importantly, the road to a good user experience is behind a good design review.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;To implement an excellent user experience for dark mode is no easy task and especially on mobile. There were lots of things we learned from how other apps have done it and how to avoid the same mistakes they did. Although, there will be improvements as we learn more about how our users use it. It is still very early days until we all get it right.&lt;/p&gt;
+
+&lt;p&gt;From the developers perspective it provides the opportunity for us to learn about our existing design system in the codebase. It allows us to think about refactoring our design system to accommodate easy changes in the future.&lt;/p&gt;
+
+&lt;p&gt;To end with a Star Wars quote:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“Once you start down the dark path, forever will it dominate your destiny.”&lt;/p&gt;
+&lt;/blockquote&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>ian</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="Dark Mode Android iOS" />
+      
+
+      
+        <summary type="html">This blog post will share my experience working with designers on how to bring the best experience for your platform, whether it is Android or iOS.</summary>
+      
+
+      
+      
+    </entry>
+  
+</feed>

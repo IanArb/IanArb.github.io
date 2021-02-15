@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>Building a RESTful API with Ktor & MongoDB Altas</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="../assets/built/screen.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/built/screen.edited.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/built/syntax.css" />
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <style>.hljs { background: none; }</style>
+
+    <!--[if IE]>
+        <style>
+            p, ol, ul{
+                width: 100%;
+            }
+            blockquote{
+                width: 100%;
+            }
+        </style>
+    <![endif]-->
+
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="Place to learn about Kotlin and Android" />
+    <link rel="shortcut icon" href="https://ianarbuckle.dev//assets/images/favicon.png" type="image/png" />
+    <link rel="canonical" href="https://ianarbuckle.dev/ktor-mongodb" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="Ian Arbuckle" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Building a RESTful API with Ktor & MongoDB Altas" />
+    <meta property="og:description" content="Are you tired of configuring a database all by yourself and want to code what matters? Then this is for you! This tutorial will be based off my talk with Kotlin Belfast User Group, feel free to watch that talk too! Introduction Ktor is a lightweight framework developed by Jetbrains." />
+    <meta property="og:url" content="https://ianarbuckle.dev/ktor-mongodb" />
+    <meta property="og:image" content="https://ianarbuckle.dev/assets/images/writing.jpg" />
+    <meta property="article:publisher" content="https://www.facebook.com/" />
+    <meta property="article:author" content="https://www.facebook.com/" />
+    <meta property="article:published_time" content="2021-01-01T17:00:00+00:00" />
+    <meta property="article:modified_time" content="2021-01-01T17:00:00+00:00" />
+    <meta property="article:tag" content="Ktor Mongodb Altas" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Building a RESTful API with Ktor & MongoDB Altas" />
+    <meta name="twitter:description" content="Are you tired of configuring a database all by yourself and want to code what matters? Then this is for you! This tutorial will be based off my talk with Kotlin Belfast User Group, feel free to watch that talk too! Introduction Ktor is a lightweight framework developed by Jetbrains." />
+    <meta name="twitter:url" content="https://ianarbuckle.dev/" />
+    <meta name="twitter:image" content="https://ianarbuckle.dev/assets/images/writing.jpg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Ian Arbuckle" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Ktor Mongodb Altas" />
+    <meta name="twitter:site" content="@IanArbuckle_" />
+    <meta name="twitter:creator" content="@IanArbuckle_" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Ian Arbuckle",
+        "logo": "https://ianarbuckle.dev/"
+    },
+    "url": "https://ianarbuckle.dev/ktor-mongodb",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://ianarbuckle.dev/assets/images/writing.jpg",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://ianarbuckle.dev/ktor-mongodb"
+    },
+    "description": "Are you tired of configuring a database all by yourself and want to code what matters? Then this is for you! This tutorial will be based off my talk with Kotlin Belfast User Group, feel free to watch that talk too! Introduction Ktor is a lightweight framework developed by Jetbrains."
+}
+    </script>
+
+    <!-- <script type="text/javascript" src="https://demo.ghost.io/public/ghost-sdk.min.js?v=724281a32e"></script>
+    <script type="text/javascript">
+    ghost.init({
+    	clientId: "ghost-frontend",
+    	clientSecret: "f84a07a72b17"
+    });
+    </script> -->
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="Building a RESTful API with Ktor & MongoDB Altas" href="/feed.xml" />
+
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- < default -->
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<!-- The big featured header, it uses blog cover image as a BG if available -->
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        
+        
+        <a class="site-nav-logo" href="https://ianarbuckle.dev/">Ian Arbuckle</a>
+        
+        
+        
+        <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="https://ianarbuckle.dev">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="https://ianarbuckle.dev/about/">About</a></li>
+    <li class="nav-public-speaking" role="menuitem"><a href="https://ianarbuckle.dev/publicspeaking/">Public Speaking</a></li>
+</ul>
+
+        
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+            
+            
+            <a class="social-link social-link-tw" href="https://twitter.com/IanArbuckle_" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+</a>
+            
+        </div>
+        
+        <a class="subscribe-button" href="#subscribe">Subscribe</a>
+        
+    </div>
+</nav>
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full  tag-ktor-mongodb-altas post ">
+
+            <header class="post-full-header">
+                <h1 class="post-full-title">Building a RESTful API with Ktor & MongoDB Altas</h1>
+            </header>
+
+            
+            <figure class="post-full-image" style="background-image: url(/assets/images/writing.jpg)">
+            </figure>
+            
+
+            <section class="post-full-content">
+                <p>Are you tired of configuring a database all by yourself and want to code what matters? Then this is for you!</p>
+
+<p>This tutorial will be based off my talk with Kotlin Belfast User Group, feel free to watch that talk too!</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/GV0rTcWGaR4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Ktor is a lightweight framework developed by Jetbrains. It enables you to build small microservices with less lines of code and makes it fun!</p>
+
+<p>In this tutorial, I’ll be showing how to build a RESTful API with Ktor and MongoDB Altas. MongoDB Altas is a database as a service that is hosted on the cloud. Think of this that your database is hosted on somebody else’s computer.</p>
+
+<p>We’ll be creating a Conference Management dashboard where can we can read, add, remove and update conferences.</p>
+
+<p>Sounds interesting? Let’s dive into it!</p>
+
+<h2 id="prerequisites-for-mongodb-altas">Prerequisites for MongoDB Altas</h2>
+<p>Let’s start setting up our MongoDB database using Altas. Head to the <a href="https://www.mongodb.com/cloud/atlas">Altas site</a> and register an account there.</p>
+
+<p>Firstly, we need to create a project as shown below:</p>
+
+<p align="center">
+    <img width="900" src="../assets/images/create-project.png" alt="Create Project" />
+</p>
+
+<p>We can keep the defaults for permissions for this tutorial and just hit “Create Project” as shown below:</p>
+
+<p align="center">
+    <img width="900" src="../assets/images/creat-project-part2.png" alt="Create Project" />
+</p>
+
+<p>Once you’ve built your project, we can starting creating our cluster!</p>
+
+<p>Before we begin, a cluster in a nutshell is a shared cluster that will allow us to scale read and writes along several nodes. Instead of going into detail, I’d recommend checking out the official <a href="https://docs.mongodb.com/v3.0/core/sharding-introduction">documentation</a> on sharding.</p>
+
+<p align="center">
+    <img width="900" src="../assets/images/build-cluster.png" alt="Cluster Tier" />
+</p>
+
+<p>We are going to use the free cluster for this tutorial. So, we don’t have to spend any money ;)</p>
+
+<p align="center">
+    <img width="900" src="../assets/images/cluster-intro.png" alt="Cluster Tier" />
+</p>
+
+<p>Once we’ve done that, we now have a few options to how we can configure our cluster. We can choose a cloud provider such as; AWS, Azure and Google Cloud. For this tutorial, we will be using the most popular provider, AWS.</p>
+
+<p>As shown below, make sure you hit AWS and choose your replica zone. I’ll be using the eu-west-1 zone but you should pick the region that is the closest to you.</p>
+
+<p align="center">
+    <img width="900" src="../assets/images/cluster-aws.png" alt="Cluster Tier" />
+</p>
+
+<p>Now, we are going to create our cluster. For this tutorial, we will be using the free tier sandbox cluster as shown below:</p>
+
+<p align="center">
+    <img width="900" src="../assets/images/cluster-tier.png" alt="Cluster Tier" />
+</p>
+
+<p>Then we can give our cluster a name shown below:</p>
+
+<p align="center">
+    <img width="900" src="../assets/images/cluster-name.png" alt="Cluster Name" />
+</p>
+
+<p>Now we can wait for Altas to build our environments for us.</p>
+
+<p align="center">
+    <img width="900" src="../assets/images/building-cluster.png" alt="Cluster Name" />
+</p>
+
+<p>Done? Great! Now we’ll stop here and setup our Ktor app.</p>
+
+<h2 id="prerequisites-for-ktor-app">Prerequisites for Ktor app</h2>
+
+<p>I’ll be using IntelliJ by Jetbrains for this tutorial and I’d suggest you install it.</p>
+
+<p>Firstly, we can create our Ktor app by creating a new project shown below:</p>
+
+<p>By time of writing, I’m using Ktor 1.4.3.</p>
+
+<p align="center">
+    <img width="900" src="../assets/images/ktor-setup.png" alt="ktor setup" />
+</p>
+
+<p>Then you can create your project name and hit finish.</p>
+
+<p>Once you’ve finished syncing your project, let’s head to the <code class="highlighter-rouge">build.gradle</code> and add the following dependencies:</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dependencies</span> <span class="p">{</span>
+    <span class="n">implementation</span><span class="p">(</span><span class="s">"org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"</span><span class="p">)</span>
+    <span class="n">implementation</span><span class="p">(</span><span class="s">"io.ktor:ktor-server-netty:$ktor_version"</span><span class="p">)</span>
+    <span class="n">implementation</span><span class="p">(</span><span class="s">"ch.qos.logback:logback-classic:$logback_version"</span><span class="p">)</span>
+    <span class="n">implementation</span><span class="p">(</span><span class="s">"io.ktor:ktor-jackson:$ktor_version"</span><span class="p">)</span>
+
+    <span class="c1">//MongoDB wrapper library
+</span>    <span class="n">implementation</span><span class="p">(</span><span class="s">"org.litote.kmongo:kmongo-coroutine:$kmongo_version"</span><span class="p">)</span>
+    <span class="n">implementation</span><span class="p">(</span><span class="s">"org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"</span><span class="p">)</span>
+
+    <span class="c1">//Koin for dependency injection
+</span>    <span class="n">implementation</span><span class="p">(</span><span class="s">"org.koin:koin-ktor:$koin_version"</span><span class="p">)</span>
+    <span class="n">implementation</span><span class="p">(</span><span class="s">"org.koin:koin-core:$koin_version"</span><span class="p">)</span>
+
+    <span class="n">testImplementation</span><span class="p">(</span><span class="s">"io.ktor:ktor-server-test-host:$ktor_version"</span><span class="p">)</span>
+    <span class="n">testImplementation</span><span class="p">(</span><span class="s">"io.mockk:mockk:$mockk_version"</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Now we are ready to start building our Ktor RESTful app.</p>
+
+<h2 id="app-architecture-and-setting-our-environment">App architecture and setting our environment</h2>
+<p>The advantage of Ktor is the freedom to choose whatever architecture fits our use case. For this tutorial, I’ll be going for the Spring MVC architecture that is commonly used in Spring Boot.</p>
+
+<p>Our project skeleton will look something like this:</p>
+
+<p align="center">
+    <img width="900" src="../assets/images/ktor-app-arch.png" alt="ktor app architecture" />
+</p>
+
+<p>Let’s take a look at our <code class="highlighter-rouge">application.conf</code> file and this is where can add configurations for our Ktor application. We can define the port and create environment variables here too. We are going to add an environment variable for our mongo uri that we will use to connect our database.</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ktor</span> <span class="p">{</span>
+    <span class="n">deployment</span> <span class="p">{</span>
+        <span class="n">port</span> <span class="p">=</span> <span class="m">8080</span>
+        <span class="n">watch</span> <span class="p">=</span> <span class="p">[</span> <span class="n">com</span><span class="p">.</span><span class="n">tutorial</span><span class="p">.</span><span class="n">conferencesapi</span><span class="p">.</span><span class="n">ApplicationKt</span><span class="p">.</span><span class="n">module</span> <span class="p">]</span>
+    <span class="p">}</span>
+    <span class="n">application</span> <span class="p">{</span>
+        <span class="n">modules</span> <span class="p">=</span> <span class="p">[</span> <span class="n">com</span><span class="p">.</span><span class="n">ianarbuckle</span><span class="p">.</span><span class="n">conferencesapi</span><span class="p">.</span><span class="n">ApplicationKt</span><span class="p">.</span><span class="n">module</span> <span class="p">]</span>
+    <span class="p">}</span>
+    <span class="n">mongoUri</span> <span class="p">=</span> <span class="err">$</span><span class="p">{</span><span class="n">MONGO_URI</span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>In order to get our Mongo uri we can retrieve this from the MongoDB Altas project we’ve setup.</p>
+
+<p>Hit the “connect” button in the cluster sandbox:</p>
+
+<p align="center">
+    <img width="900" src="../assets/images/mongodb-cluster-connect.png" alt="ktor app architecture" />
+</p>
+
+<p>Then select the “Connect your application” option and you can copy the uri from there:</p>
+
+<p align="center">
+    <img width="900" src="../assets/images/mongodb-cluster-uri.png" alt="ktor app architecture" />
+</p>
+
+<p>Now copy that and we need to replace the <code class="highlighter-rouge">&lt;dbname&gt;</code> and <code class="highlighter-rouge">&lt;password&gt;</code> placeholders.</p>
+
+<p>For our <code class="highlighter-rouge">&lt;dbname&gt;</code> let’s change it to <code class="highlighter-rouge">conferences</code> and I’ll let you decide what password you wish to use.</p>
+
+<p>Inside our <code class="highlighter-rouge">Application.kt</code> class we need to create a function to run our app and in this we will be using a Netty embedded server as follows:</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fun</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="n">Array</span><span class="p">&lt;</span><span class="n">String</span><span class="p">&gt;)</span> <span class="p">{</span>
+    <span class="n">embeddedServer</span><span class="p">(</span><span class="n">Netty</span><span class="p">,</span> <span class="n">commandLineEnvironment</span><span class="p">(</span><span class="n">args</span><span class="p">)).</span><span class="n">start</span><span class="p">(</span><span class="n">wait</span> <span class="p">=</span> <span class="k">true</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Now, we define our application module. Just to note, we can have multiple modules and if you look inside the application.conf file above you’ll see we can add multiple modules for our application inside the modules array. In our case, we are going to keep things simple for this tutorial and have a single module.</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">fun</span> <span class="nf">Application</span><span class="p">.</span><span class="n">module</span><span class="p">(</span><span class="n">testing</span><span class="p">:</span> <span class="n">Boolean</span> <span class="p">=</span> <span class="k">false</span><span class="p">)</span> <span class="p">{</span>
+        
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>If you run the app now, you’ll notice it isn’t useful :) Let’s go ahead and create a few “features”. Features in Ktor work exactly like plugins where it can install functionality for you. In our app, we are going to add the following:</p>
+
+<ul>
+  <li>
+    <p><strong>Default Headers</strong> <br />
+We will be installing a feature to add a set of default headers to our HTTP responses. It will add a date and server header to each response.</p>
+  </li>
+  <li>
+    <p><strong>Content Negotiation</strong> <br />
+We want to be able to communicate with our API via Json and we need to decide what content type to be used. In order to do that, we need to add a content negotiation. In this tutorial, we will be using the Jackson converter.</p>
+  </li>
+  <li>
+    <p><strong>CORS</strong> <br />
+Since we will be serving public content, it is good practice for our API to handle support for CORS.</p>
+  </li>
+</ul>
+
+<blockquote>
+  <p>Cross-Origin Resource Sharing (CORS) is a specification that enables truly open access across domain-boundaries. If you serve public content, please consider using CORS to open it up for universal JavaScript / browser access.</p>
+</blockquote>
+
+<p><small>From <a href="http://enable-cors.org/">enable-cors.org</a> </small></p>
+
+<ul>
+  <li><strong>Koin</strong> <br />
+To make it easy to inject dependencies we’ll be using Koin for its simplicity.</li>
+</ul>
+
+<p>Let’s install the features using the <code class="highlighter-rouge">install()</code> function which takes in an application feature type.</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fun</span> <span class="nf">Application</span><span class="p">.</span><span class="n">module</span><span class="p">(</span><span class="n">testing</span><span class="p">:</span> <span class="n">Boolean</span> <span class="p">=</span> <span class="k">false</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="n">install</span><span class="p">(</span><span class="n">DefaultHeaders</span><span class="p">)</span>
+
+    <span class="n">install</span><span class="p">(</span><span class="n">ContentNegotiation</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">jackson</span> <span class="p">{</span>
+            <span class="n">enable</span><span class="p">(</span><span class="n">SerializationFeature</span><span class="p">.</span><span class="n">INDENT_OUTPUT</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">install</span><span class="p">(</span><span class="n">CORS</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">method</span><span class="p">(</span><span class="n">HttpMethod</span><span class="p">.</span><span class="n">Options</span><span class="p">)</span>
+        <span class="n">method</span><span class="p">(</span><span class="n">HttpMethod</span><span class="p">.</span><span class="n">Put</span><span class="p">)</span>
+        <span class="n">method</span><span class="p">(</span><span class="n">HttpMethod</span><span class="p">.</span><span class="n">Delete</span><span class="p">)</span>
+        <span class="n">method</span><span class="p">(</span><span class="n">HttpMethod</span><span class="p">.</span><span class="n">Patch</span><span class="p">)</span>
+        <span class="n">anyHost</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="n">install</span><span class="p">(</span><span class="n">Koin</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">modules</span><span class="p">(</span><span class="n">appModule</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Then inject our dependencies using Koin:</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <span class="c1">//Our mongodb uri
+</span>    <span class="kd">val</span> <span class="py">uri</span> <span class="p">=</span> <span class="n">environment</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">property</span><span class="p">(</span><span class="s">"ktor.mongoUri"</span><span class="p">).</span><span class="n">getString</span><span class="p">()</span>
+
+    <span class="c1">//Inject our mongodb library wrapper
+</span>    <span class="kd">val</span> <span class="py">coroutineClient</span><span class="p">:</span> <span class="n">CoroutineClient</span> <span class="k">by</span> <span class="n">inject</span> <span class="p">{</span>
+        <span class="n">parametersOf</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="kd">val</span> <span class="py">repository</span><span class="p">:</span> <span class="n">ConferenceRepository</span> <span class="k">by</span> <span class="n">inject</span> <span class="p">{</span>
+        <span class="n">parametersOf</span><span class="p">(</span><span class="n">coroutineClient</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="kd">val</span> <span class="py">service</span><span class="p">:</span> <span class="n">ConferenceService</span> <span class="k">by</span> <span class="n">inject</span> <span class="p">{</span>
+        <span class="n">parametersOf</span><span class="p">(</span><span class="n">repository</span><span class="p">)</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Now that we have an app structure, let’s start coding what really matters, those CRUD operations!</p>
+
+<h2 id="creating-our-crud-operations">Creating our CRUD operations</h2>
+
+<h3 id="create-our-repository">Create our Repository</h3>
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">ConferenceRepository</span><span class="p">(</span><span class="k">private</span> <span class="kd">val</span> <span class="py">coroutineClient</span><span class="p">:</span> <span class="n">CoroutineClient</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="k">private</span> <span class="k">fun</span> <span class="nf">collection</span><span class="p">()</span> <span class="p">=</span>
+        <span class="n">coroutineClient</span>
+            <span class="p">.</span><span class="n">getDatabase</span><span class="p">(</span><span class="n">Constants</span><span class="p">.</span><span class="n">DATABASE_NAME</span><span class="p">)</span>
+            <span class="p">.</span><span class="n">getCollection</span><span class="p">&lt;</span><span class="n">Conference</span><span class="p">&gt;(</span><span class="n">Constants</span><span class="p">.</span><span class="n">COLLECTION_NAME</span><span class="p">)</span>
+
+<span class="p">}</span>
+
+<span class="kd">object</span> <span class="nc">Constants</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="kd">val</span> <span class="py">DATABASE_NAME</span> <span class="p">=</span> <span class="s">"conferences-db"</span>
+    <span class="k">const</span> <span class="kd">val</span> <span class="py">COLLECTION_NAME_V2</span> <span class="p">=</span> <span class="s">"conferences"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Here we are initialising our coroutine client from the <a href="https://github.com/Litote/kmongo">kmongo</a> library with the database and collection that we wish to connect to.</p>
+
+<p><strong>Create operation</strong></p>
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">ConferenceRepository</span><span class="p">(</span><span class="k">private</span> <span class="kd">val</span> <span class="py">coroutineClient</span><span class="p">:</span> <span class="n">CoroutineClient</span><span class="p">)</span> <span class="p">{</span>
+
+   <span class="n">suspend</span> <span class="k">fun</span> <span class="nf">insertConference</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Conference</span><span class="p">)</span> <span class="p">=</span> <span class="n">collection</span><span class="p">().</span><span class="n">insertOne</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+   <span class="k">private</span> <span class="k">fun</span> <span class="nf">collection</span><span class="p">()</span> <span class="p">=</span>
+        <span class="n">coroutineClient</span>
+            <span class="p">.</span><span class="n">getDatabase</span><span class="p">(</span><span class="n">Constants</span><span class="p">.</span><span class="n">DATABASE_NAME</span><span class="p">)</span>
+            <span class="p">.</span><span class="n">getCollection</span><span class="p">&lt;</span><span class="n">Conference</span><span class="p">&gt;(</span><span class="n">Constants</span><span class="p">.</span><span class="n">COLLECTION_NAME</span><span class="p">)</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Here, we insert a conference object to the collection by calling the <code class="highlighter-rouge">ìnsertOne()</code> method which takes in a generic type.</p>
+
+<p><strong>Read operation</strong></p>
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">ConferenceRepository</span><span class="p">(</span><span class="k">private</span> <span class="kd">val</span> <span class="py">coroutineClient</span><span class="p">:</span> <span class="n">CoroutineClient</span><span class="p">)</span> <span class="p">{</span>
+
+   <span class="n">suspend</span> <span class="k">fun</span> <span class="nf">findAllConferences</span><span class="p">():</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Conference</span><span class="p">&gt;</span> <span class="p">=</span>
+        <span class="n">collection</span><span class="p">()</span>
+            <span class="p">.</span><span class="n">find</span><span class="p">()</span>
+            <span class="p">.</span><span class="n">toList</span><span class="p">()</span>
+    
+   <span class="n">suspend</span> <span class="k">fun</span> <span class="nf">findOneConference</span><span class="p">(</span><span class="n">id</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span> <span class="n">Conference</span><span class="p">?</span> <span class="p">=</span> <span class="n">collection</span><span class="p">().</span><span class="n">findOneById</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+
+   <span class="c1">//...
+</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Here we will be fetching all the available conferences by using our collection builder with the <code class="highlighter-rouge">find()</code> method and then cast to a list.</p>
+
+<p>We will also want to find a specific conference. We do that by passing in the id and using the <code class="highlighter-rouge">findOneById(id)</code>. This id will be need to be a valid bson id.</p>
+
+<p><strong>Update operation</strong></p>
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">ConferenceRepository</span><span class="p">(</span><span class="k">private</span> <span class="kd">val</span> <span class="py">coroutineClient</span><span class="p">:</span> <span class="n">CoroutineClient</span><span class="p">)</span> <span class="p">{</span>
+
+   <span class="n">suspend</span> <span class="k">fun</span> <span class="nf">updateConference</span><span class="p">(</span><span class="n">requestBody</span><span class="p">:</span> <span class="n">Conference</span><span class="p">)</span> <span class="p">=</span>
+           <span class="n">collection</span><span class="p">().</span><span class="n">updateOneById</span><span class="p">(</span><span class="n">requestBody</span><span class="p">.</span><span class="n">_id</span> <span class="o">?:</span> <span class="s">""</span><span class="p">,</span> <span class="n">requestBody</span><span class="p">)</span>
+
+   <span class="c1">//...
+</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>To update an existing object in our collection, we call <code class="highlighter-rouge">ùpdateOneById(id, body)</code> with the id of the conference and the body.</p>
+
+<p><strong>Delete operation</strong></p>
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">ConferenceRepository</span><span class="p">(</span><span class="k">private</span> <span class="kd">val</span> <span class="py">coroutineClient</span><span class="p">:</span> <span class="n">CoroutineClient</span><span class="p">)</span> <span class="p">{</span>
+
+   <span class="n">suspend</span> <span class="k">fun</span> <span class="nf">deleteConference</span><span class="p">(</span><span class="n">id</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">=</span> <span class="n">collection</span><span class="p">().</span><span class="n">deleteOneById</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+
+   <span class="c1">//...
+</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>In order to delete a single object from our collection, we would call the <code class="highlighter-rouge">deleteOneById(id)</code>.</p>
+
+<p>The full repository class:</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">ConferenceRepository</span><span class="p">(</span><span class="k">private</span> <span class="kd">val</span> <span class="py">coroutineClient</span><span class="p">:</span> <span class="n">CoroutineClient</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="n">suspend</span> <span class="k">fun</span> <span class="nf">insertConference</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Conference</span><span class="p">)</span> <span class="p">=</span> <span class="n">collection</span><span class="p">().</span><span class="n">insertOne</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+    <span class="n">suspend</span> <span class="k">fun</span> <span class="nf">findAllConferences</span><span class="p">():</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Conference</span><span class="p">&gt;</span> <span class="p">=</span>
+        <span class="n">collection</span><span class="p">()</span>
+            <span class="p">.</span><span class="n">find</span><span class="p">()</span>
+            <span class="p">.</span><span class="n">toList</span><span class="p">()</span>
+
+    <span class="n">suspend</span> <span class="k">fun</span> <span class="nf">findOneConference</span><span class="p">(</span><span class="n">id</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span> <span class="n">Conference</span><span class="p">?</span> <span class="p">=</span> <span class="n">collection</span><span class="p">().</span><span class="n">findOneById</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+    
+    <span class="n">suspend</span> <span class="k">fun</span> <span class="nf">updateConference</span><span class="p">(</span><span class="n">requestBody</span><span class="p">:</span> <span class="n">Conference</span><span class="p">)</span> <span class="p">=</span>
+            <span class="n">collection</span><span class="p">().</span><span class="n">updateOneById</span><span class="p">(</span><span class="n">requestBody</span><span class="p">.</span><span class="n">_id</span> <span class="o">?:</span> <span class="s">""</span><span class="p">,</span> <span class="n">requestBody</span><span class="p">)</span>
+
+    <span class="n">suspend</span> <span class="k">fun</span> <span class="nf">deleteConference</span><span class="p">(</span><span class="n">id</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">=</span> <span class="n">collection</span><span class="p">().</span><span class="n">deleteOneById</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+
+    <span class="k">private</span> <span class="k">fun</span> <span class="nf">collection</span><span class="p">()</span> <span class="p">=</span>
+        <span class="n">coroutineClient</span>
+            <span class="p">.</span><span class="n">getDatabase</span><span class="p">(</span><span class="n">Constants</span><span class="p">.</span><span class="n">DATABASE_NAME</span><span class="p">)</span>
+            <span class="p">.</span><span class="n">getCollection</span><span class="p">&lt;</span><span class="n">Conference</span><span class="p">&gt;(</span><span class="n">Constants</span><span class="p">.</span><span class="n">COLLECTION_NAME_V2</span><span class="p">)</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Now we have our repository ready to go and be consumed!</p>
+
+<h3 id="create-our-service">Create our Service</h3>
+
+<p>We can now start to create our service class that will expose those CRUD operations to our controller.</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">ConferenceService</span><span class="p">(</span><span class="k">private</span> <span class="kd">val</span> <span class="py">repository</span><span class="p">:</span> <span class="n">ConferenceRepository</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="n">suspend</span> <span class="k">fun</span> <span class="nf">findAll</span><span class="p">():</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Conference</span><span class="p">&gt;</span> <span class="p">=</span> <span class="n">repository</span><span class="p">.</span><span class="n">findAllConferences</span><span class="p">()</span>
+
+    <span class="n">suspend</span> <span class="k">fun</span> <span class="nf">findOne</span><span class="p">(</span><span class="n">id</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span> <span class="n">Conference</span><span class="p">?</span> <span class="p">=</span> <span class="n">repository</span><span class="p">.</span><span class="n">findOneConference</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+
+    <span class="n">suspend</span> <span class="k">fun</span> <span class="nf">insertEntity</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Conference</span><span class="p">)</span> <span class="p">=</span> <span class="n">repository</span><span class="p">.</span><span class="n">insertConference</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+    <span class="n">suspend</span> <span class="k">fun</span> <span class="nf">deleteEntity</span><span class="p">(</span><span class="n">id</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">=</span> <span class="n">repository</span><span class="p">.</span><span class="n">deleteConference</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+
+    <span class="n">suspend</span> <span class="k">fun</span> <span class="nf">updateEntity</span><span class="p">(</span><span class="n">requestBody</span><span class="p">:</span> <span class="n">Conference</span><span class="p">)</span> <span class="p">=</span> <span class="n">repository</span><span class="p">.</span><span class="n">updateConference</span><span class="p">(</span><span class="n">requestBody</span><span class="p">)</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="creating-our-controller">Creating our Controller</h3>
+
+<p>In our <code class="highlighter-rouge">Application.kt</code> we will add the <code class="highlighter-rouge">routing</code> feature which enables us to build our endpoint routes.</p>
+
+<p>For simple abstraction we will be adding an extension function for the Route type by passing in our service instance.</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">routing</span> <span class="p">{</span>
+        <span class="n">conferenceRoutes</span><span class="p">(</span><span class="n">service</span><span class="p">)</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Then in our new <code class="highlighter-rouge">conferenceRoutes(service)</code> extension function we can start creating our routes.</p>
+
+<p><strong>GET</strong></p>
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fun</span> <span class="nf">Route</span><span class="p">.</span><span class="n">conferenceRoutes</span><span class="p">(</span><span class="n">service</span><span class="p">:</span> <span class="n">ConferenceService</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="n">route</span><span class="p">(</span><span class="s">"/conferences"</span><span class="p">)</span> <span class="p">{</span>
+    
+            <span class="k">get</span> <span class="p">{</span>
+                <span class="n">call</span><span class="p">.</span><span class="n">respond</span><span class="p">(</span><span class="n">HttpStatusCode</span><span class="p">.</span><span class="n">OK</span><span class="p">,</span> <span class="n">service</span><span class="p">.</span><span class="n">findAll</span><span class="p">())</span>
+            <span class="p">}</span>
+    
+            <span class="k">get</span><span class="p">(</span><span class="s">"/{id}"</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">val</span> <span class="py">parameters</span> <span class="p">=</span> <span class="n">call</span><span class="p">.</span><span class="n">parameters</span>
+                <span class="kd">val</span> <span class="py">id</span> <span class="p">=</span> <span class="n">parameters</span><span class="p">.</span><span class="n">entries</span><span class="p">().</span><span class="n">find</span> <span class="p">{</span> <span class="n">it</span><span class="p">.</span><span class="n">key</span> <span class="p">==</span> <span class="s">"id"</span> <span class="p">}</span><span class="o">?.</span><span class="n">value</span><span class="o">?.</span><span class="n">firstOrNull</span><span class="p">()</span>
+                <span class="kd">val</span> <span class="py">findConference</span> <span class="p">=</span> <span class="n">service</span><span class="p">.</span><span class="n">findOne</span><span class="p">(</span><span class="n">id</span> <span class="o">?:</span> <span class="s">""</span><span class="p">)</span>
+                <span class="n">findConference</span><span class="o">?.</span><span class="n">let</span> <span class="p">{</span> <span class="n">conference</span> <span class="p">-&gt;</span> <span class="n">call</span><span class="p">.</span><span class="n">respond</span><span class="p">(</span><span class="n">HttpStatusCode</span><span class="p">.</span><span class="n">OK</span><span class="p">,</span> <span class="n">conference</span><span class="p">)</span> <span class="p">}</span>
+            <span class="p">}</span>
+    
+        <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We handle our find all <code class="highlighter-rouge">get</code> route for the path <code class="highlighter-rouge">/conferences</code> and responding with the documents from the MongoDB collection.</p>
+
+<p>We handle our find one <code class="highlighter-rouge">get</code> route for the path <code class="highlighter-rouge">/conferences{id}</code> with the id path and responding with the document from the collection.</p>
+
+<p><strong>POST</strong></p>
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fun</span> <span class="nf">Route</span><span class="p">.</span><span class="n">conferenceRoutes</span><span class="p">(</span><span class="n">service</span><span class="p">:</span> <span class="n">ConferenceService</span><span class="p">)</span> <span class="p">{</span>     
+    <span class="n">route</span><span class="p">(</span><span class="s">"/conferences"</span><span class="p">)</span> <span class="p">{</span>
+    
+            <span class="c1">//...
+</span>    
+            <span class="n">post</span><span class="p">&lt;</span><span class="n">Conference</span><span class="p">&gt;(</span><span class="s">""</span><span class="p">)</span> <span class="p">{</span> <span class="n">request</span> <span class="p">-&gt;</span>
+                <span class="n">call</span><span class="p">.</span><span class="n">respond</span><span class="p">(</span><span class="n">HttpStatusCode</span><span class="p">.</span><span class="n">Created</span><span class="p">,</span> <span class="n">service</span><span class="p">.</span><span class="n">insertEntity</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
+            <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We handle our <code class="highlighter-rouge">post</code> route for the path <code class="highlighter-rouge">/conferences</code> with the request body by responding with the inserted new document from the MongoDB collection.</p>
+
+<p><strong>UPDATE</strong></p>
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fun</span> <span class="nf">Route</span><span class="p">.</span><span class="n">conferenceRoutes</span><span class="p">(</span><span class="n">service</span><span class="p">:</span> <span class="n">ConferenceService</span><span class="p">)</span> <span class="p">{</span>  
+    <span class="n">route</span><span class="p">(</span><span class="s">"/conferences"</span><span class="p">)</span> <span class="p">{</span>
+    
+            <span class="c1">//...
+</span>    
+            <span class="n">put</span><span class="p">(</span><span class="s">""</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">val</span> <span class="py">requestBody</span> <span class="p">=</span> <span class="n">call</span><span class="p">.</span><span class="n">receiveOrNull</span><span class="p">&lt;</span><span class="n">Conference</span><span class="p">&gt;()</span>
+                <span class="n">requestBody</span><span class="o">?.</span><span class="n">let</span> <span class="p">{</span>
+                    <span class="n">call</span><span class="p">.</span><span class="n">respond</span><span class="p">(</span><span class="n">HttpStatusCode</span><span class="p">.</span><span class="n">OK</span><span class="p">,</span> <span class="n">service</span><span class="p">.</span><span class="n">updateEntity</span><span class="p">(</span><span class="n">it</span><span class="p">))</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+    
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We will handle our <code class="highlighter-rouge">update</code> route for the path <code class="highlighter-rouge">/conferences</code> with the update request body with the matching id to the MongoDB collection.</p>
+
+<p><strong>DELETE</strong></p>
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fun</span> <span class="nf">Route</span><span class="p">.</span><span class="n">conferenceRoutes</span><span class="p">(</span><span class="n">service</span><span class="p">:</span> <span class="n">ConferenceService</span><span class="p">)</span> <span class="p">{</span>  
+    <span class="n">route</span><span class="p">(</span><span class="s">"/conferences"</span><span class="p">)</span> <span class="p">{</span>
+    
+            <span class="c1">//..
+</span>    
+            <span class="n">delete</span><span class="p">(</span><span class="s">"/{id}"</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">val</span> <span class="py">parameters</span> <span class="p">=</span> <span class="n">call</span><span class="p">.</span><span class="n">parameters</span>
+                <span class="kd">val</span> <span class="py">id</span> <span class="p">=</span> <span class="n">parameters</span><span class="p">.</span><span class="n">entries</span><span class="p">().</span><span class="n">find</span> <span class="p">{</span> <span class="n">it</span><span class="p">.</span><span class="n">key</span> <span class="p">==</span> <span class="s">"id"</span> <span class="p">}</span><span class="o">?.</span><span class="n">value</span><span class="o">?.</span><span class="n">first</span><span class="p">()</span>
+                <span class="n">call</span><span class="p">.</span><span class="n">respond</span><span class="p">(</span><span class="n">HttpStatusCode</span><span class="p">.</span><span class="n">OK</span><span class="p">,</span> <span class="n">service</span><span class="p">.</span><span class="n">deleteEntity</span><span class="p">(</span><span class="n">id</span> <span class="o">?:</span> <span class="s">""</span><span class="p">))</span>
+            <span class="p">}</span>
+    
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We will handle our <code class="highlighter-rouge">delete</code> route for the path <code class="highlighter-rouge">/conferences/{id}</code> by responding with the path id to remove a document from the MongoDB collection.</p>
+
+<p>Full code:</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fun</span> <span class="nf">Route</span><span class="p">.</span><span class="n">conferenceRoutes</span><span class="p">(</span><span class="n">service</span><span class="p">:</span> <span class="n">ConferenceService</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="n">route</span><span class="p">(</span><span class="s">"/conferences"</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="k">get</span> <span class="p">{</span>
+            <span class="n">call</span><span class="p">.</span><span class="n">respond</span><span class="p">(</span><span class="n">HttpStatusCode</span><span class="p">.</span><span class="n">OK</span><span class="p">,</span> <span class="n">service</span><span class="p">.</span><span class="n">findAll</span><span class="p">())</span>
+        <span class="p">}</span>
+
+        <span class="k">get</span><span class="p">(</span><span class="s">"/{id}"</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">val</span> <span class="py">parameters</span> <span class="p">=</span> <span class="n">call</span><span class="p">.</span><span class="n">parameters</span>
+            <span class="kd">val</span> <span class="py">id</span> <span class="p">=</span> <span class="n">parameters</span><span class="p">.</span><span class="n">entries</span><span class="p">().</span><span class="n">find</span> <span class="p">{</span> <span class="n">it</span><span class="p">.</span><span class="n">key</span> <span class="p">==</span> <span class="s">"id"</span> <span class="p">}</span><span class="o">?.</span><span class="n">value</span><span class="o">?.</span><span class="n">firstOrNull</span><span class="p">()</span>
+            <span class="kd">val</span> <span class="py">findConference</span> <span class="p">=</span> <span class="n">service</span><span class="p">.</span><span class="n">findOne</span><span class="p">(</span><span class="n">id</span> <span class="o">?:</span> <span class="s">""</span><span class="p">)</span>
+            <span class="n">findConference</span><span class="o">?.</span><span class="n">let</span> <span class="p">{</span> <span class="n">conference</span> <span class="p">-&gt;</span> <span class="n">call</span><span class="p">.</span><span class="n">respond</span><span class="p">(</span><span class="n">HttpStatusCode</span><span class="p">.</span><span class="n">OK</span><span class="p">,</span> <span class="n">conference</span><span class="p">)</span> <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="n">post</span><span class="p">&lt;</span><span class="n">Conference</span><span class="p">&gt;(</span><span class="s">""</span><span class="p">)</span> <span class="p">{</span> <span class="n">request</span> <span class="p">-&gt;</span>
+            <span class="n">call</span><span class="p">.</span><span class="n">respond</span><span class="p">(</span><span class="n">HttpStatusCode</span><span class="p">.</span><span class="n">Created</span><span class="p">,</span> <span class="n">service</span><span class="p">.</span><span class="n">insertEntity</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
+        <span class="p">}</span>
+
+        <span class="n">put</span><span class="p">(</span><span class="s">""</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">val</span> <span class="py">requestBody</span> <span class="p">=</span> <span class="n">call</span><span class="p">.</span><span class="n">receiveOrNull</span><span class="p">&lt;</span><span class="n">Conference</span><span class="p">&gt;()</span>
+            <span class="n">requestBody</span><span class="o">?.</span><span class="n">let</span> <span class="p">{</span>
+                <span class="n">call</span><span class="p">.</span><span class="n">respond</span><span class="p">(</span><span class="n">HttpStatusCode</span><span class="p">.</span><span class="n">OK</span><span class="p">,</span> <span class="n">service</span><span class="p">.</span><span class="n">updateEntity</span><span class="p">(</span><span class="n">it</span><span class="p">))</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="n">delete</span><span class="p">(</span><span class="s">"/{id}"</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">val</span> <span class="py">parameters</span> <span class="p">=</span> <span class="n">call</span><span class="p">.</span><span class="n">parameters</span>
+            <span class="kd">val</span> <span class="py">id</span> <span class="p">=</span> <span class="n">parameters</span><span class="p">.</span><span class="n">entries</span><span class="p">().</span><span class="n">find</span> <span class="p">{</span> <span class="n">it</span><span class="p">.</span><span class="n">key</span> <span class="p">==</span> <span class="s">"id"</span> <span class="p">}</span><span class="o">?.</span><span class="n">value</span><span class="o">?.</span><span class="n">first</span><span class="p">()</span>
+            <span class="n">call</span><span class="p">.</span><span class="n">respond</span><span class="p">(</span><span class="n">HttpStatusCode</span><span class="p">.</span><span class="n">OK</span><span class="p">,</span> <span class="n">service</span><span class="p">.</span><span class="n">deleteEntity</span><span class="p">(</span><span class="n">id</span> <span class="o">?:</span> <span class="s">""</span><span class="p">))</span>
+        <span class="p">}</span>
+
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="running-the-app-with-our-environment-variables">Running the app with our environment variables</h2>
+
+<p>Managed to get this far? Good on you! Before we can run the application, you might remember we’ve set variables in our <code class="highlighter-rouge">application.conf</code> file for the mongo uri and port.</p>
+
+<p>Let’s go ahead and populate those variables. I’ll be saving them in Intellji’s run configurations so that we don’t have to manually set them via the command line.</p>
+
+<p>Go to edit configurations as shown below beside the run button.</p>
+
+<p align="center">
+    <img width="900" src="../assets/images/env-varibales-edit.png" alt="ktor app architecture" />
+</p>
+
+<p>Select “environment variables” and add the mongo uri and port number as shown below then hit “apply”.</p>
+
+<p align="center">
+    <img width="900" src="../assets/images/env-variables-add.png" alt="ktor app architecture" />
+</p>
+
+<p>Go ahead and run our Ktor app and give yourself a good pat on the back!</p>
+
+<h2 id="testing-our-requests-with-postman">Testing our requests with Postman</h2>
+
+<p>Postman is an API client that allows us to develop create, share and test APIs easier.</p>
+
+<p>If you haven’t already downloaded Postman, please go to their website and download their desktop app.</p>
+
+<p>Download the <a href="https://www.getpostman.com/collections/48882bc0d6e799c28026">collection</a> and replace the base url with your own.</p>
+
+<h2 id="summary">Summary</h2>
+
+<p>A short summary of what we’ve learnt:</p>
+
+<ul>
+  <li>Creating a MongoDB cloud database with Altas</li>
+  <li>Using Ktor with the MongoK library to create our CRUD operations</li>
+  <li>Testing our API calls with Postman collection</li>
+</ul>
+
+<p>Code for this tutorial can be found on <a href="https://github.com/IanArb/conferencesKtor">github</a></p>
+
+<p>Part 2 of this tutorial will be how to deploy the API using Docker and Heroku.</p>
+
+<p>Thanks for reading!</p>
+
+            </section>
+
+        </article>
+
+    </div>
+</main>
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+<script>
+$(function() {
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+});
+</script>
+
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="https://ianarbuckle.dev/">Ian Arbuckle</a> &copy; 2021</section>
+                <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> &
+                    <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> using
+                    <a href="https://github.com/jekyller/jasper2" target="_blank" rel="noopener">Jasper2</a></section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    <a href="https://twitter.com/IanArbuckle_" target="_blank" rel="noopener">Twitter</a>
+                    <a href="https://github.com/IanArb" target="_blank" rel="noopener">Github</a>
+                    <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- The big email subscribe modal content -->
+    
+        <div id="subscribe" class="subscribe-overlay">
+            <a class="subscribe-overlay-close" href="#"></a>
+            <div class="subscribe-overlay-content">
+                
+                <h1 class="subscribe-overlay-title">Subscribe to Ian Arbuckle</h1>
+                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+                <form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+            </div>
+        </div>
+    
+
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/components/prism-abap.min.js"></script>
+    <script>$(document).ready(function() {
+      $('pre code').each(function(i, block) {
+        hljs.highlightBlock(block);
+      });
+    });</script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="../assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="../assets/js/jquery.fitvids.js?v=724281a32e"></script>
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-69281367-1', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+    // NOTE: Scroll performance is poor in Safari
+    // - this appears to be due to the events firing much more slowly in Safari.
+    //   Dropping the scroll event and using only a raf loop results in smoother
+    //   scrolling but continuous processing even when not scrolling
+    $(document).ready(function () {
+        // Start fitVids
+        var $postContent = $(".post-full-content");
+        $postContent.fitVids();
+        // End fitVids
+
+        var progressBar = document.querySelector('progress');
+        var header = document.querySelector('.floating-header');
+        var title = document.querySelector('.post-full-title');
+
+        var lastScrollY = window.scrollY;
+        var lastWindowHeight = window.innerHeight;
+        var lastDocumentHeight = $(document).height();
+        var ticking = false;
+
+        function onScroll() {
+            lastScrollY = window.scrollY;
+            requestTick();
+        }
+
+        function onResize() {
+            lastWindowHeight = window.innerHeight;
+            lastDocumentHeight = $(document).height();
+            requestTick();
+        }
+
+        function requestTick() {
+            if (!ticking) {
+                requestAnimationFrame(update);
+            }
+            ticking = true;
+        }
+
+        function update() {
+            var trigger = title.getBoundingClientRect().top + window.scrollY;
+            var triggerOffset = title.offsetHeight + 35;
+            var progressMax = lastDocumentHeight - lastWindowHeight;
+
+            // show/hide floating header
+            if (lastScrollY >= trigger + triggerOffset) {
+                header.classList.add('floating-active');
+            } else {
+                header.classList.remove('floating-active');
+            }
+
+            progressBar.setAttribute('max', progressMax);
+            progressBar.setAttribute('value', lastScrollY);
+
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', onScroll, {passive: true});
+        window.addEventListener('resize', onResize, false);
+
+        update();
+    });
+</script>
+    
+
+    <!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag -->
+    <!-- ghost_foot -->
+
+</body>
+</html>

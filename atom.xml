@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title> - Articles</title>
+    <description>Place to learn about Kotlin and Android</description>
+    <link>
+    https://ianarbuckle.dev</link>
+    
+      
+      <item>
+        <title>Pagination with Jetpack Compose</title>
+        
+          <description>&lt;p&gt;Declarative UIs are on the rise in Android with Jetpack Compose. We are going to explore how to use the paging library component.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Mon, 08 Feb 2021 21:00:00 +0000</pubDate>
+        <link>
+        https://ianarbuckle.dev/compose-paging</link>
+        <guid isPermaLink="true">https://ianarbuckle.dev/compose-paging</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Collaborating with designers for dark mode on Android &amp; iOS</title>
+        
+          <description>&lt;p&gt;This blog post will share my experience working with designers on how to bring the best experience for your platform, whether it is Android or iOS.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Wed, 06 Jan 2021 17:00:00 +0000</pubDate>
+        <link>
+        https://ianarbuckle.dev/dark-mode-with-designers</link>
+        <guid isPermaLink="true">https://ianarbuckle.dev/dark-mode-with-designers</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Building a RESTful API with Ktor &amp; MongoDB Altas</title>
+        
+          <description>&lt;p&gt;Are you tired of configuring a database all by yourself and want to code what matters? Then this is for you!&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 01 Jan 2021 17:00:00 +0000</pubDate>
+        <link>
+        https://ianarbuckle.dev/ktor-mongodb</link>
+        <guid isPermaLink="true">https://ianarbuckle.dev/ktor-mongodb</guid>
+      </item>
+      
+    
+  </channel>
+</rss>
